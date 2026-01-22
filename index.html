@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập JavaScript - Product OOP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .exercise {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .exercise h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .exercise-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .product-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .result-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .property-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .property-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .property-list li:last-child {
+            border-bottom: none;
+        }
+
+        .property-name {
+            color: #667eea;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BÀI TẬP JAVASCRIPT - PRODUCT OOP</h1>
+            <p>Lê Đại Thanh Long - HUTECH</p>
+        </div>
+
+        <div class="content" id="results">
+            <!-- Kết quả sẽ được render bằng JavaScript -->
+        </div>
+
+        <div class="footer">
+            <p>© 2026 - Bài tập Ngôn ngữ phát triển ứng dụng</p>
+        </div>
+    </div>
+
+    <script src="product.js"></script>
+    <script>
+        // Render kết quả lên HTML
+        function renderResults() {
+            const resultsDiv = document.getElementById('results');
+            let html = '';
+
+            // Câu 1 & 2: Danh sách sản phẩm
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 1 & 2: Constructor và Danh sách sản phẩm</h2>
+                    <div class="exercise-content">
+                        ${products.map(p => `
+                            <div class="product-card">
+                                <strong>${p.name}</strong>
+                                <span class="badge ${p.isAvailable ? 'badge-success' : 'badge-danger'}">
+                                    ${p.isAvailable ? 'Đang bán' : 'Ngừng bán'}
+                                </span>
+                                <br>
+                                Giá: ${p.price.toLocaleString('vi-VN')}đ | 
+                                SL: ${p.quantity} | 
+                                ${p.category}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Câu 3: Name và Price
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 3: Mảng chỉ chứa name và price</h2>
+                    <div class="exercise-content">
+                        ${getNameAndPrice().map(p => `
+                            <div class="product-card">
+                                ${p.name} - <strong>${p.price.toLocaleString('vi-VN')}đ</strong>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Câu 4: Sản phẩm còn hàng
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 4: Sản phẩm còn hàng (quantity > 0)</h2>
+                    <div class="exercise-content">
+                        ${getInStockProducts().map(p => `
+                            <div class="product-card">
+                                ${p.name} - Số lượng: <strong>${p.quantity}</strong>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Câu 5: Sản phẩm giá cao
+            const expensiveProducts = products.filter(p => p.price > 30000000);
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 5: Có sản phẩm giá trên 30.000.000đ?</h2>
+                    <div class="exercise-content">
+                        <div class="result-highlight">
+                            ${hasExpensiveProduct() ? 'CÓ' : 'KHÔNG'}
+                        </div>
+                        ${expensiveProducts.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <strong>Danh sách sản phẩm giá cao:</strong>
+                                ${expensiveProducts.map(p => `
+                                    <div class="product-card">
+                                        <strong>${p.name}</strong><br>
+                                        Giá: <strong style="color: #e74c3c;">${p.price.toLocaleString('vi-VN')}đ</strong> | 
+                                        SL: ${p.quantity} | 
+                                        ${p.category}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+
+            // Câu 6: Accessories available
+            const accessories = products.filter(p => p.category === "Accessories");
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 6: Tất cả Accessories có đang bán?</h2>
+                    <div class="exercise-content">
+                        <div class="result-highlight">
+                            ${areAllAccessoriesAvailable() ? 'CÓ' : 'KHÔNG'}
+                        </div>
+                        ${accessories.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <strong>Danh sách Accessories:</strong>
+                                ${accessories.map(p => `
+                                    <div class="product-card">
+                                        <strong>${p.name}</strong>
+                                        <span class="badge ${p.isAvailable ? 'badge-success' : 'badge-danger'}">
+                                            ${p.isAvailable ? 'Đang bán' : 'Ngừng bán'}
+                                        </span>
+                                        <br>
+                                        Giá: ${p.price.toLocaleString('vi-VN')}đ | 
+                                        SL: ${p.quantity}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : '<p>Không có sản phẩm Accessories nào.</p>'}
+                    </div>
+                </div>
+            `;
+
+            // Câu 7: Tổng giá trị kho
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 7: Tổng giá trị kho hàng</h2>
+                    <div class="exercise-content">
+                        <div class="result-highlight">
+                            ${getTotalInventoryValue().toLocaleString('vi-VN')}đ
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Câu 8: for...of
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 8: Duyệt mảng với for...of</h2>
+                    <div class="exercise-content">
+                        ${products.map(p => {
+                const status = p.isAvailable ? 'Đang bán' : 'Ngừng bán';
+                return `<div class="product-card">${p.name} - ${p.category} - ${status}</div>`;
+            }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Câu 9: for...in
+            const firstProduct = products[0];
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 9: Duyệt thuộc tính với for...in</h2>
+                    <div class="exercise-content">
+                        <strong>Sản phẩm mẫu: ${firstProduct.name}</strong>
+                        <ul class="property-list">
+                            ${Object.keys(firstProduct).map(key => `
+                                <li>
+                                    <span class="property-name">${key}:</span> 
+                                    ${firstProduct[key]}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Câu 10: Sản phẩm đang bán và còn hàng
+            html += `
+                <div class="exercise">
+                    <h2>CÂU 10: Sản phẩm đang bán và còn hàng</h2>
+                    <div class="exercise-content">
+                        ${getAvailableAndInStockProductNames().map(name => `
+                            <div class="product-card">${name}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // Render khi trang load xong
+        renderResults();
+    </script>
+</body>
+
+</html>
